@@ -20,7 +20,7 @@ const utilities = {
             id: 'util-typography',
             title: 'Typography',
             type: 'item',
-            url: '/utils/util-typography',
+            url: '/admin/utils/util-typography',
             icon: icons.IconTypography,
             breadcrumbs: false
         },
@@ -28,7 +28,7 @@ const utilities = {
             id: 'util-color',
             title: 'Color',
             type: 'item',
-            url: '/utils/util-color',
+            url: '/admin/utils/util-color',
             icon: icons.IconPalette,
             breadcrumbs: false
         },

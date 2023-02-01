@@ -3,6 +3,8 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import CompaniesList from '../views/companies/CompaniesList';
+import CompaniesForm from '../views/companies/CompaniesForm';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -20,28 +22,23 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-    path: '/',
+    path: '/admin',
     element: <MainLayout />,
     children: [
         {
-            path: '/',
+            path: 'dashboard',
             element: <DashboardDefault />
         },
         {
-            path: 'dashboard',
+            path: 'companies',
             children: [
                 {
-                    path: 'default',
-                    element: <DashboardDefault />
-                }
-            ]
-        },
-        {
-            path: 'utils',
-            children: [
+                    path: 'new',
+                    element: <CompaniesForm />
+                },
                 {
-                    path: 'util-typography',
-                    element: <UtilsTypography />
+                    path: 'list',
+                    element: <CompaniesList />
                 }
             ]
         },
