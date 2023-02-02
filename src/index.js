@@ -27,6 +27,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_URI });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+console.log(process.env.REACT_APP_GRAPHQL_URI);
 const client = new ApolloClient({
     link: from([errorLink, httpLink]),
     cache: new InMemoryCache()

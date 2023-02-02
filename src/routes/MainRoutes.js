@@ -37,6 +37,10 @@ const MainRoutes = {
                     element: <CompaniesForm />
                 },
                 {
+                    path: ':id',
+                    element: <CompaniesForm />
+                },
+                {
                     path: 'list',
                     element: <CompaniesList />
                 }

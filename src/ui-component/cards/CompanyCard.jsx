@@ -60,20 +60,20 @@ const CompanyCard = ({ data }) => {
     return (
         <>
             <DeleteModal open={openModal} handleClose={handleCloseModal} action={handleDetele} name={name} />
-            <Card sx={{ display: 'flex', backgroundColor: 'background.paper' }}>
+            <Card sx={{ display: 'flex', backgroundColor: 'primary.400' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 200 }}>
                     <CardContent sx={{ flex: '1 0 auto' }}>
-                        <Typography component="div" variant="h6" color="primary.light">
+                        <Typography component="div" variant="h5" color="secondary.main">
                             {name}
                         </Typography>
                         <Typography variant="subtitle2" color="text.primary" component="div">
                             {`RUC: ${ruc}`}
                         </Typography>
-
-                        <Typography variant="subtitle1" color="primary.light" component="div">
-                            Contratos
-                        </Typography>
-
+                        {contracts.data.lenght && (
+                            <Typography variant="subtitle1" color="primary.light" component="div">
+                                Contratos
+                            </Typography>
+                        )}
                         <List>
                             {contracts.data.map((contract) => (
                                 <ListItemButton key={contract.id}>
@@ -90,7 +90,7 @@ const CompanyCard = ({ data }) => {
                         <Tooltip title="Editar">
                             <IconButton
                                 component={Link}
-                                to={`/dashboard/companies/manage/${data.id}`}
+                                to={`/admin/companies/${data.id}`}
                                 state={{ id: data.id, name, ruc }}
                                 aria-label="edit"
                             >

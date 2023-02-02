@@ -18,11 +18,12 @@ const MyTextInput = styled(TextField)(({ theme }) => ({
             borderColor: theme.palette.secondary.light
         },
         '&.Mui-focused': {
-            borderColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.main,
             backgroundColor: theme.palette.primary.main
         },
         '$.Mui-underline': {
-            color: theme.palette.secondary.main
+            color: theme.palette.secondary.main,
+            borderColor: theme.palette.secondary.main
         }
     },
     '& .MuiFilledInput-underline': {

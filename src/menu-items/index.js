@@ -7,7 +7,7 @@ import administration from './administration';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, administration, pages, utilities, other]
+    items: [dashboard, administration, pages, utilities]
 };
 
 export default menuItems;

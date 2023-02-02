@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useLazyQuery, useMutation } from '@apollo/client';
-import { toast } from 'react-hot-toast';
+import { useMutation } from '@apollo/client';
+
 // @mui
-import { Card, CardHeader, Stack, Button, Container, CardContent, CardActions, TextField } from '@mui/material';
+import { Stack, Container, CardActions } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 import { CREATE_COMPANY, UPDATE_COMPANY } from '../../graphql/companies/mutations';
 import { GET_ALL_COMPANIES } from '../../graphql/companies/queries';
 import CustomTextField from '../../ui-component/forms/CustomTextField';
 import MainCard from '../../ui-component/cards/MainCard';
+import { toast } from 'react-hot-toast';
 
 // form validation
 const validationSchema = yup.object({
@@ -60,7 +61,9 @@ const CompaniesForm = () => {
                 setSubmitting(true);
                 setLoader(true);
                 if (selectedCompany) {
-                    const response = await updateCompany({ variables: { id: selectedCompany.id, name: values.name, ruc: values.ruc } });
+                    const response = await updateCompany({
+                        variables: { id: selectedCompany.id, name: values.name.toUpperCase(), ruc: values.ruc }
+                    });
                     const { error, loading } = response;
 
                     if (!error) {
@@ -71,7 +74,7 @@ const CompaniesForm = () => {
                         toast.error('Error al actualizar la empresa');
                     }
                 } else {
-                    const response = await createCompany({ variables: { name: values.name, ruc: values.ruc } });
+                    const response = await createCompany({ variables: { name: values.name.toUpperCase(), ruc: values.ruc } });
                     const { error, loading } = response;
                     if (!error) {
                         setLoader(loading);

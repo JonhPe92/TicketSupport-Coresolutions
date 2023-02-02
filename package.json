@@ -1,7 +1,7 @@
 {
     "name": "ticket-support-coresolutions",
-    "version": "3.1.0",
-    "private": true,
+    "version": "1.0",
+    "private": false,
     "homepage": "",
     "dependencies": {
         "@apollo/client": "^3.7.6",
@@ -16,6 +16,7 @@
         "@tabler/icons": "^1.72.0",
         "apexcharts": "^3.35.3",
         "date-fns": "^2.29.3",
+        "dotenv": "^16.0.3",
         "formik": "^2.2.9",
         "framer-motion": "^4.1.13",
         "graphql": "^16.6.0",
@@ -24,6 +25,7 @@
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
         "react-apexcharts": "^1.4.0",
+        "react-auth-kit": "^2.7.1",
         "react-device-detect": "^1.17.0",
         "react-dom": "^18.2.0",
         "react-hot-toast": "^2.4.0",

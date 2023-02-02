@@ -115,7 +115,7 @@ MobileSearch.propTypes = {
 
 // ==============================|| SEARCH INPUT ||============================== //
 
-const SearchSection = () => {
+const SearchSection = ({ filterName, onFilterName }) => {
     const theme = useTheme();
     const [value, setValue] = useState('');
 
@@ -164,12 +164,12 @@ const SearchSection = () => {
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                 <OutlineInputStyle
                     id="input-search-header"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    value={filterName}
+                    onChange={onFilterName}
                     placeholder="Search"
                     startAdornment={
                         <InputAdornment position="start">
-                            <IconSearch stroke={1.5} size="1rem" color={theme.palette.grey[500]} />
+                            <IconSearch stroke={1.5} size="1rem" color={theme.palette.secondary.main} />
                         </InputAdornment>
                     }
                     endAdornment={
@@ -182,7 +182,7 @@ const SearchSection = () => {
                         </InputAdornment>
                     }
                     aria-describedby="search-helper-text"
-                    inputProps={{ 'aria-label': 'weight' }}
+                    inputProps={{ 'aria-label': 'weight', 'text-color:': 'black' }}
                 />
             </Box>
         </>

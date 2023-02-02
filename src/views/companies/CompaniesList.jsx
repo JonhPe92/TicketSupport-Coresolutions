@@ -15,6 +15,7 @@ import LoaderCircular from '../../ui-component/loader/loader';
 
 // querys
 import { GET_ALL_COMPANIES } from '../../graphql/companies/queries';
+import SearchSection from '../../layout/MainLayout/Header/SearchSection';
 
 function applySortFilter(array, query) {
     const stabilizedThis = array.map((el, index) => [el, index]);
@@ -52,17 +53,10 @@ const CompaniesList = () => {
         <>
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} display="flex">
-                    <Typography variant="h4" gutterBottom>
+                    <Typography variant="h3" gutterBottom>
                         Empresas
                     </Typography>
-                    {/* <Button
-            component={Link}
-            to="/dashboard/companies/new"
-            variant="contained"
-            startIcon={<Iconify icon="bi:building-fill-add" />}
-          >
-            Empresa Nueva
-          </Button> */}
+                    <SearchSection filterName={filterName} onFilterName={handleFilterByName} />
                 </Stack>
             </Container>
 
@@ -80,10 +74,6 @@ const CompaniesList = () => {
                         </Box>
                     ) : (
                         <Container>
-                            <Card sx={{ marginBottom: '2em', backgroundColor: 'primary.main' }}>
-                                {/* <ListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} /> */}
-                                <Typography>Empresas</Typography>
-                            </Card>
                             <Box sx={{ flexGrow: 1 }}>
                                 <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 6, sm: 8, md: 12 }}>
                                     {filteredCompanies.map((item) => (
