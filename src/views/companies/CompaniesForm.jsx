@@ -95,23 +95,6 @@ const CompaniesForm = () => {
 
     return (
         <>
-            {/* <Container>
-                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={6} display="flex">
-                    <Button
-                        component={Link}
-                        to="/dashboard/companies"
-                        variant="text"
-                        endIcon={<Iconify icon="mdi:building" />}
-                        startIcon={<Iconify icon="material-symbols:arrow-circle-left-outline" />}
-                        size="large"
-                    >
-                        Empresas
-                    </Button>
-
-                    <Iconify icon="mdi:office-building-plus" width={50} />
-                </Stack>
-            </Container> */}
-
             <form onSubmit={formik.handleSubmit}>
                 <Container>
                     <MainCard title="Crear Empresa" border={false}>
