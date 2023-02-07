@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "singularName": "company",
+    "pluralName": "companies",
+    "displayName": "Company"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "ruc": {
+      "type": "string",
+      "maxLength": 13,
+      "required": true
+    },
+    "logoPath": {
+      "type": "string",
+      "default": "/uploads/default_Company_Logo_9f70267c7f.png?updated_at=2023-01-25T02:46:40.708Z"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "company"
+    },
+    "contracts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::contract.contract",
+      "mappedBy": "company"
+    }
+  }
+}
