@@ -1,12 +1,17 @@
 import { lazy } from 'react';
 import { RequireAuth } from 'react-auth-kit';
 
+import { Navigate } from 'react-router';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
-import CompaniesList from '../views/companies/CompaniesList';
-import CompaniesForm from '../views/companies/CompaniesForm';
-import { Navigate } from 'react-router';
+// Companines
+const CompaniesList = Loadable(lazy(() => import('views/companies/CompaniesList')));
+const CompaniesForm = Loadable(lazy(() => import('views/companies/CompaniesForm')));
+
+// Contracts
+const ContractList = Loadable(lazy(() => import('views/contracts/ContractList')));
+const ContractForm = Loadable(lazy(() => import('views/contracts/ContractForm')));
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -49,6 +54,23 @@ const MainRoutes = {
                 {
                     path: 'list',
                     element: <CompaniesList />
+                }
+            ]
+        },
+        {
+            path: 'contracts',
+            children: [
+                {
+                    path: 'new',
+                    element: <ContractForm />
+                },
+                {
+                    path: ':id',
+                    element: <ContractForm />
+                },
+                {
+                    path: 'list',
+                    element: <ContractList />
                 }
             ]
         },

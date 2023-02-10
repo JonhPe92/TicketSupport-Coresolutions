@@ -1,7 +1,6 @@
 {
     "name": "ticket-support-coresolutions",
     "version": "1.0",
-    "private": false,
     "homepage": "",
     "dependencies": {
         "@apollo/client": "^3.7.6",
