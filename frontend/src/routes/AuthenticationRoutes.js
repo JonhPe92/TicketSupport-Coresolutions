@@ -15,7 +15,7 @@ const AuthenticationRoutes = {
     element: <MinimalLayout />,
     children: [
         {
-            path: '/support/login',
+            path: '/support-portal/login',
             element: <AuthLogin />
         },
         {

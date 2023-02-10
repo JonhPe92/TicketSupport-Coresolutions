@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useAuthUser, useIsAuthenticated } from 'react-auth-kit';
+import { useAuthUser, useIsAuthenticated, useAuthHeader } from 'react-auth-kit';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -69,13 +69,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
 
 const MainLayout = () => {
     const navigate = useNavigate();
-    const authData = useAuthUser();
-    const isAuthenticated = useIsAuthenticated();
+
     const [isAdmin, setAdmin] = useState(false);
     const theme = useTheme();
     const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'));
 
-    useAuth({ deps: isAuthenticated, setAdmin });
+    useAuth({ setAdmin });
 
     // Handle left drawer
     const leftDrawerOpened = useSelector((state) => state.customization.opened);
@@ -88,8 +87,6 @@ const MainLayout = () => {
         dispatch({ type: SET_MENU, opened: !matchDownMd });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [matchDownMd]);
-
-    if (!isAdmin) return <MinimalLayout />;
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -111,12 +108,12 @@ const MainLayout = () => {
             </AppBar>
 
             {/* drawer */}
-            <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
+            {isAdmin && <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />}
 
             {/* main content */}
             <Main theme={theme} open={leftDrawerOpened}>
                 {/* breadcrumb */}
-                {/* <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign /> */}
+                <Breadcrumbs separator={IconChevronRight} navigation={navigation} icon title rightAlign />
                 <Outlet />
             </Main>
             <Customization />

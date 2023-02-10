@@ -29,6 +29,7 @@ import {
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useSignOut, useAuthUser, useIsAuthenticated } from 'react-auth-kit';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -42,6 +43,9 @@ import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
+    const signOut = useSignOut();
+    const authData = useAuthUser();
+    const currentUser = authData();
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
     const navigate = useNavigate();
@@ -55,9 +59,6 @@ const ProfileSection = () => {
      * anchorRef is used on different componets and specifying one type leads to other components throwing an error
      * */
     const anchorRef = useRef(null);
-    const handleLogout = async () => {
-        console.log('Logout');
-    };
 
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -156,78 +157,20 @@ const ProfileSection = () => {
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
                                     <Box sx={{ p: 2 }}>
                                         <Stack>
-                                            <Stack direction="row" spacing={0.5} alignItems="center">
-                                                <Typography variant="h4">Good Morning,</Typography>
+                                            <Stack spacing={1} alignItems="left">
+                                                <Typography
+                                                    variant="h4"
+                                                    sx={{ color: theme.palette.text.primary }}
+                                                >{`${currentUser.name} ${currentUser.lastname}`}</Typography>
                                                 <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    Johne Doe
+                                                    {currentUser.email}
                                                 </Typography>
                                             </Stack>
-                                            <Typography variant="subtitle2">Project Admin</Typography>
+                                            <Typography variant="subtitle2">{currentUser.role.toUpperCase()}</Typography>
                                         </Stack>
-                                        <OutlinedInput
-                                            sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
-                                            id="input-search-profile"
-                                            value={value}
-                                            onChange={(e) => setValue(e.target.value)}
-                                            placeholder="Search profile options"
-                                            startAdornment={
-                                                <InputAdornment position="start">
-                                                    <IconSearch stroke={1.5} size="1rem" color={theme.palette.grey[500]} />
-                                                </InputAdornment>
-                                            }
-                                            aria-describedby="search-helper-text"
-                                            inputProps={{
-                                                'aria-label': 'weight'
-                                            }}
-                                        />
-                                        <Divider />
                                     </Box>
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>
-                                            <UpgradePlanCard />
-                                            <Divider />
-                                            <Card
-                                                sx={{
-                                                    bgcolor: theme.palette.primary.light,
-                                                    my: 2
-                                                }}
-                                            >
-                                                <CardContent>
-                                                    <Grid container spacing={3} direction="column">
-                                                        <Grid item>
-                                                            <Grid item container alignItems="center" justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1">Start DND Mode</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Switch
-                                                                        color="primary"
-                                                                        checked={sdm}
-                                                                        onChange={(e) => setSdm(e.target.checked)}
-                                                                        name="sdm"
-                                                                        size="small"
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Grid item container alignItems="center" justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="subtitle1">Allow Notifications</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Switch
-                                                                        checked={notification}
-                                                                        onChange={(e) => setNotification(e.target.checked)}
-                                                                        name="sdm"
-                                                                        size="small"
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </CardContent>
-                                            </Card>
                                             <Divider />
                                             <List
                                                 component="nav"
@@ -255,38 +198,11 @@ const ProfileSection = () => {
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
                                                 </ListItemButton>
-                                                <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    selected={selectedIndex === 1}
-                                                    onClick={(event) => handleListItemClick(event, 1, '/user/social-profile/posts')}
-                                                >
-                                                    <ListItemIcon>
-                                                        <IconUser stroke={1.5} size="1.3rem" />
-                                                    </ListItemIcon>
-                                                    <ListItemText
-                                                        primary={
-                                                            <Grid container spacing={1} justifyContent="space-between">
-                                                                <Grid item>
-                                                                    <Typography variant="body2">Social Profile</Typography>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Chip
-                                                                        label="02"
-                                                                        size="small"
-                                                                        sx={{
-                                                                            bgcolor: theme.palette.warning.dark,
-                                                                            color: theme.palette.background.default
-                                                                        }}
-                                                                    />
-                                                                </Grid>
-                                                            </Grid>
-                                                        }
-                                                    />
-                                                </ListItemButton>
+
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 4}
-                                                    onClick={handleLogout}
+                                                    onClick={() => signOut()}
                                                 >
                                                     <ListItemIcon>
                                                         <IconLogout stroke={1.5} size="1.3rem" />

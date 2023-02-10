@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import { useState } from 'react';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
@@ -10,6 +10,8 @@ import AuthCardWrapper from '../AuthCardWrapper';
 import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
 import AuthFooter from 'ui-component/cards/AuthFooter';
+import useAuth from '../../../../hooks/useAuth';
+import { useAuthUser, useIsAuthenticated } from 'react-auth-kit';
 
 // assets
 
@@ -46,7 +48,7 @@ const Login = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Bienvenido al sistema de soporte
+                                                        Bienvenido al portal de soporte
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"

@@ -17,9 +17,9 @@ export default function Projects() {
     return (
         <Wrapper id="projects">
             <div className="whiteBg">
-                <div className="container">
+                <div className="container-custom">
                     <HeaderInfo>
-                        <h1 className="font40 extraBold">Our Awesome Projects</h1>
+                        <h1 className="font40 extraBold">Proyectos</h1>
                         <p className="font13 boxPadding">
                             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
                             <br />
@@ -120,10 +120,14 @@ export default function Projects() {
 
 const Wrapper = styled.section`
     width: 100%;
+    margintop: 4em;
+    paddingtop: 4em;
 `;
 const HeaderInfo = styled.div`
     @media (max-width: 860px) {
         text-align: center;
+        margintop: 4em;
+        paddingtop: 4em;
     }
 `;
 const Advertising = styled.div`

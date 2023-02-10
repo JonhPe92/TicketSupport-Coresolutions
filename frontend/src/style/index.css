@@ -63,6 +63,13 @@
     margin: 0 auto;
     padding: 0px 30px;
   }
+  .container-custom {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    margin-top: 10em;
+    padding-top: 50px;
+  }
   @media only screen and (max-width: 859px) {
     .container {
       padding: 0 15px;
@@ -219,6 +226,9 @@
     }
   }
   /* BORDER RADIUS */
+  .radius10 {
+    border-radius: 2rem;
+  }
   .radius8 {
     border-radius: 1rem;
   }
@@ -285,4 +295,9 @@
   .logoBg {
     background-color: #005187;
   }
+  .lightGreyBg {
+    background-color: #6eb6fa;
+  }
+
+
 

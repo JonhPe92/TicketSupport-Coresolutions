@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { SIGN_IN, USER_DATA } from '../../../../graphql/auth/auth-graphql';
-import { useSignIn } from 'react-auth-kit';
+import { useSignIn, useAuthUser, useIsAuthenticated } from 'react-auth-kit';
 
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
@@ -47,9 +47,37 @@ const AuthLogin = ({ ...others }) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const [checked, setChecked] = useState(true);
     const signIn = useSignIn();
+    const [loginError, setloginError] = useState(false);
+    const auth = useAuthUser();
+    const isAuthenticated = useIsAuthenticated();
+
+    useEffect(() => {
+        console.log('user auth run');
+        console.log(isAuthenticated());
+        if (!isAuthenticated()) {
+            console.log('user auth not log');
+            navigate('/support-portal/login');
+        } else {
+            const userData = auth();
+            console.log('user auth user data');
+            console.group(userData);
+            switch (userData.role) {
+                case 'admin':
+                    navigate('/admin/dashboard');
+                    break;
+                case 'client':
+                    navigate('/support-portal/home');
+                    break;
+                default:
+                    navigate('/');
+                    break;
+            }
+        }
+    }, []);
 
     // sign in mutation
     const [login] = useMutation(SIGN_IN);
+
     // query user info
     const [userData] = useLazyQuery(USER_DATA);
 
@@ -64,6 +92,11 @@ const AuthLogin = ({ ...others }) => {
 
     return (
         <>
+            {loginError && (
+                <Typography variant="subtitle" color="red">
+                    Usuario o contraseña invalidos
+                </Typography>
+            )}
             <Formik
                 initialValues={{
                     email: '',
@@ -71,27 +104,25 @@ const AuthLogin = ({ ...others }) => {
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
+                    email: Yup.string().email('Ingrese un email valido').max(255).required('Se requiere Email'),
+                    password: Yup.string().max(255).required('Se requiere Password')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         setSubmitting(true);
+                        setloginError(false);
                         const response = await login({ variables: { identifier: values.email, password: values.password } });
                         const account = normalize(response);
-                        console.log('login response');
-                        console.log(normalize(response));
                         if (account) {
                             const token = account.login.jwt;
                             const { id, username, email } = account.login.user;
                             const user = await userData({ variables: { id } });
                             const { usersPermissionsUser } = normalize(user);
-                            console.log('userData');
-                            console.log(usersPermissionsUser);
+
                             if (
                                 signIn({
                                     token,
-                                    expiresIn: 3600,
+                                    expiresIn: 60,
                                     tokenType: 'Bearer',
                                     authState: {
                                         id,
@@ -113,7 +144,7 @@ const AuthLogin = ({ ...others }) => {
                         }
                     } catch (err) {
                         console.error(err.message);
-
+                        setloginError(true);
                         setSubmitting(false);
                     }
                 }}

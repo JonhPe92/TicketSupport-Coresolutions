@@ -4,6 +4,7 @@ import Header from './Header';
 import Projects from './Projects';
 import Services from './Services';
 import Footer from './Footer';
+import Products from './Products';
 
 const LandingPage = () => {
     const isAuthenticated = false;
@@ -12,6 +13,7 @@ const LandingPage = () => {
             <TopNavbar />
             <Header />
             <Services />
+            <Products />
             <Projects />
             <Contact />
             <Footer />

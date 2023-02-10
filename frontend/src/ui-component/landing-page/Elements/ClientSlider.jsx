@@ -51,6 +51,11 @@ export default function ClientSlider() {
         <div>
             <div className="lightBg" style={{ padding: '10px 0', display: 'grid', placeItems: 'center', filter: 'opacity(70%)' }}>
                 <h1 className="font30 extraBold darkColor"> Nuestros Clientes</h1>
+                <p className="font15 darkColor" style={{ marginTop: '1em' }}>
+                    Desde nuestros inicios hemos mantenido como filosofía de trabajo entregar a nuestros clientes un servicio de la más alta
+                    calidad, por lo que brindamos soluciones integrales que involucran asesoramiento, implementaciones, capacitación,
+                    consultoría, y sobre todo el soporte técnico oportuno en el momento en que lo necesitan.
+                </p>
             </div>
             <Slider {...settings}>
                 {clients.map((client) => (

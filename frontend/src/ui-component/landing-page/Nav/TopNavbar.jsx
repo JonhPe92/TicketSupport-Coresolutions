@@ -40,39 +40,30 @@ export default function TopNavbar() {
                         </li>
                         <li className="semiBold font15 pointer">
                             <Link activeClass="active" style={{ padding: '10px 15px' }} to="services" spy smooth offset={-80}>
-                                Services
+                                Servicios
+                            </Link>
+                        </li>
+                        <li className="semiBold font15 pointer">
+                            <Link activeClass="active" style={{ padding: '10px 15px' }} to="products" spy smooth offset={-80}>
+                                Productos
                             </Link>
                         </li>
                         <li className="semiBold font15 pointer">
                             <Link activeClass="active" style={{ padding: '10px 15px' }} to="projects" spy smooth offset={-80}>
-                                Projects
+                                Proyectos
                             </Link>
                         </li>
-                        <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: '10px 15px' }} to="blog" spy smooth offset={-80}>
-                                Blog
-                            </Link>
-                        </li>
-                        <li className="semiBold font15 pointer">
-                            <Link activeClass="active" style={{ padding: '10px 15px' }} to="pricing" spy smooth offset={-80}>
-                                Pricing
-                            </Link>
-                        </li>
+
                         <li className="semiBold font15 pointer">
                             <Link activeClass="active" style={{ padding: '10px 15px' }} to="contact" spy smooth offset={-80}>
-                                Contact
+                                Contactos
                             </Link>
                         </li>
                     </UlWrapper>
                     <UlWrapperRight className="flexNullCenter">
-                        <li className="semiBold font15 pointer">
-                            <a href="/" style={{ padding: '10px 30px 10px 0' }}>
-                                Log in
-                            </a>
-                        </li>
-                        <li className="semiBold font15 pointer flexCenter">
-                            <a href="/" className="radius8 lightBg" style={{ padding: '10px 15px' }}>
-                                Get Started
+                        <li className="semiBold font15 pointer  flexcenter">
+                            <a className="radius10 lightGreyBg" href="/support-portal/login" style={{ padding: '10px 15px' }}>
+                                Soporte
                             </a>
                         </li>
                     </UlWrapperRight>

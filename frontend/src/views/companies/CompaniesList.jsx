@@ -2,6 +2,7 @@ import { filter } from 'lodash';
 
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
+import { useAuthHeader } from 'react-auth-kit';
 
 // @mui
 import { Alert, Box, Card, Stack, Button, Container, Typography, IconButton, Fab } from '@mui/material';
@@ -30,12 +31,15 @@ let filteredCompanies = [];
 
 const CompaniesList = () => {
     const navigate = useNavigate();
+    // header for authorization
+    const authHeader = useAuthHeader();
+    const token = authHeader();
 
     const [selected, setSelected] = useState([]);
 
     const [filterName, setFilterName] = useState('');
 
-    const { loading, error, data } = useQuery(GET_ALL_COMPANIES);
+    const { loading, error, data } = useQuery(GET_ALL_COMPANIES, { context: { headers: { authorization: token } } });
 
     console.log('companies data');
     console.log(data);

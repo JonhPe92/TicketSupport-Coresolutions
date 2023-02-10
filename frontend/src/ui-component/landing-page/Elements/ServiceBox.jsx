@@ -62,4 +62,6 @@ const SubtitleStyle = styled.p`
     width: 100%;
     max-width: 300px;
     margin: 0 auto;
+    text-align: justify;
+    text-justify: inter-word;
 `;

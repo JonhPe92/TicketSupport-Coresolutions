@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useMutation } from '@apollo/client';
+import { useAuthHeader } from 'react-auth-kit';
 
 // @mui
 import { Stack, Container, CardActions } from '@mui/material';
@@ -22,6 +23,10 @@ const validationSchema = yup.object({
 });
 
 const CompaniesForm = () => {
+    // header for authorization
+    const authHeader = useAuthHeader();
+    const token = authHeader();
+
     // validate if editCompany is using the form
     const location = useLocation();
     const [formType, setformType] = useState('Crear');
@@ -35,18 +40,17 @@ const CompaniesForm = () => {
             setformType('Actualizar');
         }
     }, [selectedCompany]);
-    // mutation create company
-    const [createCompany] = useMutation(
-        CREATE_COMPANY,
-        {
-            refetchQueries: [{ query: GET_ALL_COMPANIES }]
-        },
-        { errorPolicy: 'all' }
-    );
 
     // mutation create company
+    const [createCompany] = useMutation(CREATE_COMPANY, {
+        refetchQueries: [{ query: GET_ALL_COMPANIES, context: { headers: { authorization: token } } }],
+        context: { headers: { authorization: token } }
+    });
+
+    // mutation update company
     const [updateCompany] = useMutation(UPDATE_COMPANY, {
-        refetchQueries: [{ query: GET_ALL_COMPANIES }]
+        refetchQueries: [{ query: GET_ALL_COMPANIES, context: { headers: { authorization: token } } }],
+        context: { headers: { authorization: token } }
     });
 
     const initialValues = selectedCompany ?? {

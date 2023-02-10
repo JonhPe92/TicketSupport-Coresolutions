@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useAuthHeader } from 'react-auth-kit';
 // @mui
 import {
     Card,
@@ -27,8 +28,16 @@ import { GET_ALL_COMPANIES } from '../../graphql/companies/queries';
 import DeleteModal from '../modals/DeleteModal';
 
 const CompanyCard = ({ data }) => {
+    // header for authorization
+    const authHeader = useAuthHeader();
+    const token = authHeader();
+
     // mutation to delete company
-    const [deleteCompany, { loading, error }] = useMutation(DELETE_COMPANY, { refetchQueries: [{ query: GET_ALL_COMPANIES }] });
+    const [deleteCompany, { loading, error }] = useMutation(DELETE_COMPANY, {
+        refetchQueries: [{ query: GET_ALL_COMPANIES, context: { headers: { authorization: token } } }],
+        context: { headers: { authorization: token } }
+    });
+
     // states for manage delete modal
 
     const [openModal, setOpenModal] = useState(false);
@@ -69,7 +78,7 @@ const CompanyCard = ({ data }) => {
                         <Typography variant="subtitle2" color="text.primary" component="div">
                             {`RUC: ${ruc}`}
                         </Typography>
-                        {contracts.data.lenght && (
+                        {contracts.data && (
                             <Typography variant="subtitle1" color="primary.light" component="div">
                                 Contratos
                             </Typography>
@@ -79,7 +88,7 @@ const CompanyCard = ({ data }) => {
                                 <ListItemButton key={contract.id}>
                                     <ListItemText
                                         component="div"
-                                        primary={`"• "${contract.attributes.name} `}
+                                        primary={`• ${contract.attributes.name} `}
                                         primaryTypographyProps={{ fontSize: 12, fontWeight: 'bold' }}
                                     />
                                 </ListItemButton>

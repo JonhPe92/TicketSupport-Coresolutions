@@ -24,7 +24,7 @@ const MainRoutes = {
     path: '/admin',
 
     element: (
-        <RequireAuth loginPath="/support/login">
+        <RequireAuth loginPath="/support-portal/login">
             {' '}
             <MainLayout />
         </RequireAuth>

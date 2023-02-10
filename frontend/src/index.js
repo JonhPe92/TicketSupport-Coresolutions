@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 // third party
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 
 // project imports
@@ -28,12 +29,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const httpLink = new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_URI });
+const link = createHttpLink({ uri: process.env.REACT_APP_GRAPHQL_URI, credentials: 'include' });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-console.log(process.env.REACT_APP_GRAPHQL_URI);
 const client = new ApolloClient({
-    link: from([errorLink, httpLink]),
+    link,
     cache: new InMemoryCache()
 });
 
